@@ -105,17 +105,12 @@ class ListaEnlazada { // Creamos la clase Lista Enlazada
     remove(valor){ // Elimina el primer nodo que contiene el valor proporcionado.
         if (this.isEmpty()) {return}// Si la lista esta vacia
         let nodoActual = this.head; // Declaramos una variable que contenga la lista
-        let prev; // Declaramos la variable prev que nos permitira contener el nodo anterior
-        for (let i = 0; i < this.size-1; i++) { // Recorre el ancho de la lista
-            if (valor === nodoActual.value){
-                prev.next = nodoActual.next; // El next del nodo anterior al que deseamos eliminar, es decir el nodo que contiene al deseado por eliminar se le reemplaza next por el siguiente nodo al que queremos eliminar. Por lo que el deseado por eliminar desaparece de la lista y los pointers quedan actualizados
-                this.size--;
-                break;
-            } // Si el valor ingresado corresponde al value de algun nodo, se regresa ese nodo
-            prev = nodoActual; // Prev sera la variable que mentendra el nodoAnterior, esto con el fin de luego eliminar el nodo que contenga el value valor
-            nodoActual = nodoActual.next; // De lo contrario saltamos al siguiente nodo
+        while ((valor != (nodoActual.next).value) && (nodoActual != null)) { // Comparamos el valor del nodo con el valor del siguiente nodo al actual
+            nodoActual = nodoActual.next // Pasamos al siguiente nodo
         }
-        return null; // No se encontro un nodo con value = valor
+        if (nodoActual == null) {return null}
+        nodoActual.next = (nodoActual.next).next // El nodo en el que estamos contiene al que vamos a eliminar en su propiedad next, entoces vamos a reemplazarlo con el next del que queremos eliminar y asi poder continuar la cadena de pointers
+        this.size--;
     }
     toArray(){ // Convierte la lista enlazada en un array, lo cual puede ser útil para ciertas operaciones o para visualización.
         let nodoActual = this.head;
@@ -126,7 +121,6 @@ class ListaEnlazada { // Creamos la clase Lista Enlazada
         }
         return arrayNodos
     }
-
     reverse(){ // Invierte el orden de los nodos en la lista enlazada.
         if (this.size === 0) {return};
         let prev = null; // Declaramos tanto el anterior como el siguiente en null, esto es necesario para el primer elemento de la nueva lista
@@ -138,9 +132,7 @@ class ListaEnlazada { // Creamos la clase Lista Enlazada
             prev = nodoActual; // El prev ahora cambia de valor para contener al nodoActual, que en la siguiente iteracion sera el nodo previo al actual.
             nodoActual = next; // Nos movemos 1 nodo a la derecha
         }
-    
         this.head = prev; // Finalmente, establecemos la nueva cabeza de la lista
-
         // Si no fue suficiente la explicacion, aqui dejo un chatgpt que lo explica https://goo.su/UEZhvvs
     }
     insertAfter(who, value){ // Inserta un nuevo nodo con el valor proporcionado después del nodo especificado en la lista. Who seria el nodo al que se esta haciendo referencia, y value seria el valor del nuevo nodo que ira despues de who
@@ -194,22 +186,23 @@ lista.push(100);
 lista.push(999);
 // console.log(lista);
 lista.pop();
-// console.log(lista);
-// console.log(lista.peekFirst());
-// console.log(lista.peekLast());
+console.log(lista);
+console.log(lista.peekFirst());
+console.log(lista.peekLast());
 lista.insertAtHead(1);
 // console.log(lista);
-// console.log(lista.search(202))
-lista.remove(105);
+console.log(lista.search(202))
+lista.remove(100);
+console.log(lista)
 console.log(lista.toArray());
 console.log(lista);
 lista.reverse();
 console.log(lista.toArray());
-console.log(lista);// Deberia ser 100, 202, 20, 1
-lista.insertAfter(202, 8); // Deberia ser 100, 202, , 20, 1
+console.log(lista);
+lista.insertAfter(202, 8);
 console.log(lista.toArray());
-lista.removeAfter(202); // Deberia ser 100, 202, 20, 1 (se elimino a 8 que se habia agregado antes)
+lista.removeAfter(202);
 console.log(lista.toArray());
-console.log(lista.getAt(2)) // Deberia dar 20
-lista.insertAt(1, 19) // Deberia dar 100, 19, 202, 20, 1
+console.log(lista.getAt(2)) 
+lista.insertAt(1, 19);
 console.log(lista.toArray());
