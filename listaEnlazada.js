@@ -44,15 +44,21 @@ class ListaEnlazada { // Creamos la clase Lista Enlazada
         this.size++;
     }
     pop() { // Metodo para eliminar el ultimo nodo
-        if (this.size === 0) { return }; // Si la lista esta vacia
-        let nodoActual = this.head; // Hacemos referencia a la cabeza de la lista
-        let prev; // Declaramos la variable prev que nos permitira contener el nodo anterior
-        for (let i = 0; i < (this.size-1); i++) { // Este for lo voy a usar muchas veces
-            prev = nodoActual; // Prev sera la variable que mentendra el nodoAnterior, esto con el fin de luego eliminar el ultimo nodo
-            nodoActual = nodoActual.next; // Al reemplazar nodoActual con el siguiente nodo a nodoActual, estamos moviendonos a traves de la lista.
+        if (this.size === 0) { return } // Si la lista esta vacia
+        else if (this.size === 1) {
+            this.size = 0;
+            this.head = null;
         }
-        prev.next = nodoActual.next; // Con esta linea estamos diciendo, el penultimo elemento va a tener como next a null, y como penultimo.next es originalmente el ultimo elemento, lo estamos eliminando y a la vez declarando que el penultimo es el nuevo ultimo ya que apunta ahora a null
-        this.size--;
+        else{
+            let nodoActual = this.head; // Hacemos referencia a la cabeza de la lista
+            let prev; // Declaramos la variable prev que nos permitira contener el nodo anterior
+            for (let i = 0; i < (this.size-1); i++) { // Este for lo voy a usar muchas veces
+                prev = nodoActual; // Prev sera la variable que mentendra el nodoAnterior, esto con el fin de luego eliminar el ultimo nodo
+                nodoActual = nodoActual.next; // Al reemplazar nodoActual con el siguiente nodo a nodoActual, estamos moviendonos a traves de la lista.
+            }
+            prev.next = nodoActual.next; // Con esta linea estamos diciendo, el penultimo elemento va a tener como next a null, y como penultimo.next es originalmente el ultimo elemento, lo estamos eliminando y a la vez declarando que el penultimo es el nuevo ultimo ya que apunta ahora a null
+            this.size--;
+        }
     }
     del() {
         if (this.size === 0) { return }; // Si la lista esta vacia
